@@ -1,0 +1,16 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "Philia recipe engine is a Personal assistant for food recommendation , that provides over 2 million recipes that are indexed, normalized, and contain full nutrition information. The assistant allows for search by nutrient quantity, 40 diet, and health labels as well as keyword searches by cuisine type (chinese, italian, indian, french,...), meal type (lunch, dinner, breakfast, snack) or dish type (soup, salad, pizza, sandwich,...).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.83.0",
+    "restify": "^6.3.4"
+  }
+}
