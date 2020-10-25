@@ -24,17 +24,11 @@ module.exports = class methods {
         console.log('Facebook says: ', res)
     }
 
-    async sendImageAttachment(image, id) {
+    async sendImageAttachment(text, id) {
 
         const json = {
             recipient: { id },
-            message: { 
-                type:"image",
-                payload:{
-                    url:image, 
-                    is_reusable:true
-                }
-             }
+            message: { text }
         }
 
         const res = await request({
@@ -48,7 +42,6 @@ module.exports = class methods {
 
         console.log('Facebook says: ', res)
     }
-        
 
     getMessageObject(json) {
         const message = json.entry[0].messaging[0].message.text

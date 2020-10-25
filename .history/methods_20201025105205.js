@@ -24,14 +24,14 @@ module.exports = class methods {
         console.log('Facebook says: ', res)
     }
 
-    async sendImageAttachment(image, id) {
+    async sendImageAttachment(text, id) {
 
         const json = {
             recipient: { id },
             message: { 
                 type:"image",
                 payload:{
-                    url:image, 
+                    url:"http://www.messenger-rocks.com/image.jpg", 
                     is_reusable:true
                 }
              }
