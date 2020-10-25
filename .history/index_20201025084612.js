@@ -16,6 +16,8 @@ app.use(Restify.plugins.jsonp())
 app.get('/', (req, res, next) => {
     if(req.query['hub.mode'] == 'subscribe' && req.query['hub.verify_token'] == token) {
         res.end(req.query['hub.challenge'])
+        // res.setHeader('Content-Type', 'text/html');
+        // res.status(200).send('<h1>Bienvenue dans Philia Recipe Engine</h1>');
     } else {
         next()
     }
