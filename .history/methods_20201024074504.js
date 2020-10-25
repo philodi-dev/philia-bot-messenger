@@ -13,7 +13,7 @@ module.exports = class methods {
         }
 
         const res = await request({
-            url: 'https://graph.facebook.com/v8.0/me/messages',
+            url: 'https://graph.facebook.com/v2.11/me/messages',
             qs: {
                 access_token: this.ACCESS_TOKEN
             },
