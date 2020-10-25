@@ -24,11 +24,10 @@ app.get('/', (req, res, next) => {
 
 app.post('/', (req, res, next) => {
     const response = req.body
-    const index = Math.floor(Math.random() * (3 - 1) + 1)
     const welcomeMessage = ['Welcome to philia, your personal food recommendation assistant. you can search for a special diet meal planning by saying, Can I get a high-protein  meal, please ?  or just say , Can you search for a burger recipe ? or ask for help','Hello dear customer, I am philia, your personal assistant for dietary recommendations. you can ask for help or search for a special diet meal planning by saying, Do you have balanced meal ? or Can I get a pizza recipe ?','Hello, my name is philia, your personal assistant to find you meals that match your diet and taste. search for a special diet meal planning by saying; Do you have low-sodium meal ? or just say ; Can I get a chicken recipe ? or just ask for help']
     if (response.object === "page") {
         const messageObj = bot.getMessageObject(response)
-        bot.sendText(`${welcomeMessage[index]}`, messageObj.id)
+        bot.sendText(`You said: ${messageObj.message}`, messageObj.id)
     }
     res.send(200)
 })
