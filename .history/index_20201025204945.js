@@ -33,9 +33,9 @@ app.post('/', (req, res, next) => {
         const messageObj = bot.getMessageObject(response)
         if(messageObj.message.includes('meal') || messageObj.message.includes('recipe') || messageObj.message.includes('do you have') || messageObj.message.includes('may I have') || messageObj.message.includes('do you have') || messageObj.message.includes('can I order')){
             bot.sendText(`${mealMessage[index2]}`, messageObj.id)
-            bot.sendImageAttachment(`${image[index2]}`, messageObj.id)
         }else{
             bot.sendText(`${welcomeMessage[index]}`, messageObj.id)
+            bot.sendImageAttachment(`${image}`, messageObj.id)
         }
     }
     res.send(200)

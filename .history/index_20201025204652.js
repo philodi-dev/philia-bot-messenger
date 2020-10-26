@@ -28,14 +28,14 @@ app.post('/', (req, res, next) => {
     const index2 = Math.floor(Math.random() * (6 - 1) + 1)
     const mealMessage = ['Baked Chicken', 'Drunken Chicken Recipe', 'Chicken Satay','Chicken Feet Stock', 'Catalan Chicken', 'Creamed Chicken recipes']
     const welcomeMessage = ['Welcome to philia, your personal food recommendation assistant. you can search for a special diet meal planning by saying, Can I get a high-protein  meal, please ?  or just say , Can you search for a burger recipe ? or ask for help','Hello dear customer, I am philia, your personal assistant for dietary recommendations. you can ask for help or search for a special diet meal planning by saying, Do you have balanced meal ? or Can I get a pizza recipe ?','Hello, my name is philia, your personal assistant to find you meals that match your diet and taste. search for a special diet meal planning by saying; Do you have low-sodium meal ? or just say ; Can I get a chicken recipe ? or just ask for help']
-    const image = ['https://www.edamam.com/web-img/01c/01cacb70890274fb7b7cebb975a93231.jpg','https://www.edamam.com/web-img/921/9216913515dc95ba687e2ae85d6ef3e0.jpg', 'https://www.edamam.com/web-img/ba6/ba6f66d885e4d62a98055b088a5a85a3.jpg', 'https://www.edamam.com/web-img/ae9/ae96650072cc599967d945c5e9961bb7.JPG', 'https://www.edamam.com/web-img/4d9/4d9084cbc170789caa9e997108b595de.jpg', 'https://www.edamam.com/web-img/67d/67dfcb646ef76499afc7b89640868099']
+    const image = 'https://s3.amazonaws.com/umojafunding.com/Logo+astech-congo+final3.png'
     if (response.object === "page") {
         const messageObj = bot.getMessageObject(response)
         if(messageObj.message.includes('meal') || messageObj.message.includes('recipe') || messageObj.message.includes('do you have') || messageObj.message.includes('may I have') || messageObj.message.includes('do you have') || messageObj.message.includes('can I order')){
             bot.sendText(`${mealMessage[index2]}`, messageObj.id)
-            bot.sendImageAttachment(`${image[index2]}`, messageObj.id)
         }else{
             bot.sendText(`${welcomeMessage[index]}`, messageObj.id)
+            bot.sendImageAttachment(`${image}`, messageObj.id)
         }
     }
     res.send(200)
