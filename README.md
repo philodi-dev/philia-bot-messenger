@@ -1,274 +1,584 @@
 # PHILIA RECIPE ENGINE
 
-# Build a Facebook Messenger  Bot with Node.js and a RESTFUL API  In Just 5 minutes
+**Author:** Philodi  
+**Email:** me@philodi.com  
+**Website:** https://philodi.com
 
-Chatbots are computer programs that mimic conversation with people through the use of artificial intelligence.
-In a nutshell, when someone types in a message, the bot responds with the right reply.
-Out of the thousands of chatbots that exist today, most are messenger apps designed to communicate with customers. They work with Natural Processing Language (NLP) systems which translate everyday language into a form that the bot can understand and learn new interactions from.
+[![Node.js](https://img.shields.io/badge/Node.js-16.x-green.svg)](https://nodejs.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Facebook Messenger](https://img.shields.io/badge/Facebook-Messenger-0084FF.svg)](https://developers.facebook.com/docs/messenger-platform)
+[![Heroku](https://img.shields.io/badge/Deploy-Heroku-purple.svg)](https://heroku.com)
 
-Through the help of that technology, bots now hold endless possibilities. You can use them to read everyday news, get the weather, transfer money, buy your favorite items, schedule a meeting, or even get service assistance. And all from the convenience of your favorite messenger app.
+---
 
-People are now spending more mobile screen time on messaging than on social media. A lot of companies have noticed the trend and are taking advantage of chatbots as a new channel to talk to us. Turns out that a whopping 60% of online adults in the US use online messaging, voice or video chat services.
+## 📋 Table of Contents
 
-***Today, I’m going to show you how to build your own Facebook Messenger bot node.js in just 5 minutes***
-### A step-by-step guide to building the chatbot
-#### What it does?
-**PHILIA Recipe Engine** was originally an Alexa conversation skill, which provides more than 2 million indexed, standardized, and complete nutritional information recipes; so I decided to create a  facebook-messenger bot for this project as well. The bot allows searches by amount of nutrients, 40 diets and health labels, as well as keyword searches by type of cuisine (Chinese, Italian, Indian, French, ...), by type of meal (lunch, dinner, breakfast, snack) or by type of dish (soup, salad, pizza, sandwich, ...). 
+- [Overview](#overview)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Quick Start](#quick-start)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
-#### Prerequisites
-In order to start writing this bot application, there are a few requirements:
-- [Facebook developer account](https://developers.facebook.com/)
-- [Node js](https://nodejs.org/en/)
-- [Github account](https://github.com/)
-- [Heroku account](https://www.heroku.com/)
-- GNU Screen / Terminal
+---
 
-So, assuming we have all the above covered — Let’s get started!
+## 🚀 Overview
 
-**Step 1: Creating a github repository**
+**PHILIA Recipe Engine** is an intelligent Facebook Messenger bot that provides personalized food recommendations and recipe suggestions. Originally developed as an Alexa conversation skill, it now offers over 2 million indexed, standardized recipes with complete nutritional information.
 
-First we need to create a github repository. If you don't know how to do this, then look [here](https://product.hubspot.com/blog/git-and-github-tutorial-for-beginners).
+The bot enables users to search for recipes by:
+- **Nutrient quantities** (protein, carbs, calories, etc.)
+- **40+ dietary restrictions** (vegan, gluten-free, keto, etc.)
+- **Health labels** (low-sodium, heart-healthy, etc.)
+- **Cuisine types** (Chinese, Italian, Indian, French, etc.)
+- **Meal types** (breakfast, lunch, dinner, snacks)
+- **Dish types** (soup, salad, pizza, sandwich, etc.)
 
+## ✨ Features
 
-**Step 2: Writing webhook server with Restify**
+- 🤖 **Intelligent Chat Interface** - Natural language processing for recipe queries
+- 🍽️ **2M+ Recipes** - Comprehensive database with nutritional information
+- 🎯 **Dietary Filtering** - Support for 40+ diet types and health labels
+- 🌍 **Global Cuisines** - Recipes from around the world
+- 📱 **Facebook Messenger Integration** - Seamless user experience
+- 🔍 **Smart Search** - Keyword and category-based recipe discovery
+- 📊 **Nutritional Data** - Complete nutritional breakdown for each recipe
+- 🖼️ **Recipe Images** - Visual recipe previews
 
-First of all, we need to know that a webhook (also called a web callback or HTTP push API) is a way for an app to provide other applications with real-time information. It delivers data to other applications as it happens, meaning you get data immediately, unlike typical APIs where you would need to poll for data very frequently in order to get it in real-time.
-In order to get started, you will have to clone the github repository that we created into the local machine.
-Once, you it is done , go to your terminal, access this directory and initialize your Node.js app with:
-``` js
-npm init
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following:
+
+- [Facebook Developer Account](https://developers.facebook.com/)
+- [Node.js](https://nodejs.org/en/) (v16 or higher)
+- [GitHub Account](https://github.com/)
+- [Heroku Account](https://www.heroku.com/) (for deployment)
+- Terminal/Command Line access
+
+## ⚡ Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/Phil-Jayz/philia-bot-messenger.git
+cd philia-bot-messenger
+
+# Install dependencies
+npm install
+
+# Start the server
+npm start
 ```
-After filling out all the needed info (if you don’t know how to fill package.json, take a look [here](https://docs.npmjs.com/getting-started/using-a-package.json) ), your next step will be to install the required dependencies to setup our webhook server. So, in your terminal type:
-``` js
-npm install restify request --save
+
+## 🛠️ Installation
+
+### Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/Phil-Jayz/philia-bot-messenger.git
+cd philia-bot-messenger
 ```
-Once the installation is complete, go to your directory and create a file called index.js and start Restify server listening to the port 8001 (you can take any you want).
-``` js
-const Restify = require('restify')
-let PORT = process.env.PORT || 8001;
 
-const app = Restify.createServer({
-    name: 'philia recipe engine'
-})
-app.use(Restify.plugins.bodyParser({ limit: '50mb' }))
-app.use(Restify.plugins.jsonp())
+### Step 2: Install Dependencies
 
-app.listen(PORT, () =>
-    console.log('Server listening on:' + PORT)
-);
+```bash
+npm install
 ```
-Save it and let’s check if it’s working. Run this command in your terminal:
-``` js
-node index.js
+
+### Step 3: Configure Environment
+
+Create a `.env` file in the root directory:
+
+```env
+PORT=8001
+FACEBOOK_ACCESS_TOKEN=your_facebook_access_token
+VERIFY_TOKEN=your_verify_token
 ```
-Great, our server is listening! Now we are going to create two endpoints:
-1. One will be for Facebook initial verification. The reason why we need to do this is because when you’re connecting a Facebook page with the webhook server you will also need have a token. Facebook will make a request and match this token to that one webhook response to be sure that you’re not connecting your page with a random webhook server.
-2. The second one will be responsible for the other messages from Facebook Messenger.
 
-The first verification endpoint goes to index.js like this:
-``` js
-const Restify = require('restify')
-let PORT = process.env.PORT || 8001;
+### Step 4: Start the Server
 
-const token = 'abc12345'
-const app = Restify.createServer({
-    name: 'philia recipe engine'
-})
-app.use(Restify.plugins.bodyParser({ limit: '50mb' }))
-app.use(Restify.plugins.jsonp())
-
-app.get('/', (req, res, next) => {
-    if (req.query['hub.mode'] == 'subscribe' && req.query['hub.verify_token'] == token) {
-        res.end(req.query['hub.challenge'])
-    } else {
-        next()
-    }
-})
-
-app.listen(PORT, () =>
-    console.log('Server listening on:' + PORT)
-);
+```bash
+npm start
 ```
-Here you can see a token string value “abc12345” . You can change it and choose any word or text string value that you prefer. Make sure to make a note of it as you will need it later when setting up your Facebook app.
 
-Before dealing with our second final point, we will have to create a file named methods.js to implement all the http post methods for our bot, like this :
-``` js
-const request = require('./requestPromise')
+The server will start on port 8001 (or the port specified in your environment variables).
 
-module.exports = class methods {
-    constructor(access_token) {
-        this.ACCESS_TOKEN = access_token
-    }
+## ⚙️ Configuration
 
-    async sendText(text, id) {
-        const json = {
-            recipient: { id },
-            message: { text }
-        }
+### Facebook App Setup
 
-        const res = await request({
-            url: 'https://graph.facebook.com/v8.0/me/messages',
-            qs: {
-                access_token: this.ACCESS_TOKEN
-            },
-            json,
-            method: 'POST'
-        })
-        console.log('Facebook says: ', res)
-    }
+1. **Create a Facebook Page**
+   - Go to [Facebook Pages](https://web.facebook.com/pages/create?)
+   - Choose a page name, category, and description
+   - Click "Create Page"
 
-    async sendImageAttachment(image, id) {
-        const json = {
-            recipient: { id },
-            message: { 
-                attachment:{
-                    type:'image',
-                    payload:{
-                        url:image, 
-                        is_reusable:true
-                    }
-                }
-             }
-        }
+2. **Create a Facebook App**
+   - Visit [Facebook Developers](https://developers.facebook.com/apps/)
+   - Click "Create App"
+   - Select "Manage Business Integrations"
+   - Fill in app details and create
 
-        const res = await request({
-            url: 'https://graph.facebook.com/v8.0/me/messages',
-            qs: {
-                access_token: this.ACCESS_TOKEN
-            },
-            json,
-            method: 'POST'
-        })
+3. **Configure Messenger**
+   - In your app, click the "Messenger" icon
+   - Click "Set Up"
+   - Generate a Page Access Token
+   - Configure webhooks with your server URL
 
-        console.log('Facebook says: ', res)
-    }
+### Webhook Configuration
 
-    getMessageObject(json) {
-        const message = json.entry[0].messaging[0].message.text
-        const id = json.entry[0].messaging[0].sender.id
-        return {message, id}
-    }
+```javascript
+// Your webhook URL should be: https://your-app.herokuapp.com/
+// Verify Token: Your chosen verification token
+// Subscription Fields: messages
+```
+
+## 💬 Usage
+
+### Starting a Conversation
+
+Users can interact with the bot using natural language:
+
+```
+User: "Hello"
+Bot: "Welcome to philia, your personal food recommendation assistant..."
+
+User: "Can I get a high-protein meal?"
+Bot: "In that case, I recommend that you take [Recipe Name]"
+[Recipe Image]
+
+User: "Do you have Italian food?"
+Bot: "In that case, I recommend that you take [Italian Recipe]"
+[Recipe Image]
+```
+
+### Supported Commands
+
+| Command Type | Examples |
+|-------------|----------|
+| **Dietary Requests** | "Can I get a low-carb meal?", "Do you have vegan options?" |
+| **Cuisine Types** | "Show me Italian food", "I want Chinese recipes" |
+| **Meal Types** | "Breakfast ideas", "Lunch suggestions" |
+| **Dish Types** | "Pizza recipes", "Soup options" |
+| **General** | "Help", "Thank you", "Goodbye" |
+
+## 🔧 API Reference
+
+### Webhook Endpoints
+
+#### GET `/`
+Facebook verification endpoint for webhook setup.
+
+**Parameters:**
+- `hub.mode`: Must be "subscribe"
+- `hub.verify_token`: Your verification token
+- `hub.challenge`: Facebook's challenge string
+
+#### POST `/`
+Handles incoming messages from Facebook Messenger.
+
+**Request Body:**
+```json
+{
+  "object": "page",
+  "entry": [{
+    "messaging": [{
+      "sender": {"id": "user_id"},
+      "message": {"text": "user_message"}
+    }]
+  }]
 }
 ```
-For this to work we need to create a requestPromise.js file to handle all the promised responses from our client's facebook messenger.
-``` js
-const request = require('request')
-module.exports = function(obj) {
-    return new Promise((resolve, reject) => {
-        request(obj, (error, response, body) => {
-            if(!error) {
-                resolve(body)
-            } else {
-                reject(error)
-            }
-        })
-    })
-}
-```
-Now it is time to add our  second endpoint in our webhook server for handling all the Facebook bot messages and by providing our Facebook page token, we will see how to create this.
-``` js
-const Restify = require('restify')
-const methods = require('./methods')
 
-let PORT = process.env.PORT || 8001;
+### Methods Class
 
-const app = Restify.createServer({
-    name: 'philia recipe engine'
-})
+The `methods.js` file provides the following methods:
 
-const token = 'abc12345'
-const bot = new methods('EAANz0eBh2w8BANf1PMdNdruoYmHScelZCDkpDCFMoZAdcvgaa7pHeOKsxLDEIN9vDaDoEZAHfK9GcsQdjFe2GTG32z1oCw7FxWZA9AFW34H2LQp1Opx9b7fQZBC3cyntPfriqDUmEYBm1VG2i60tZBHtBZABN6Wl5RTuw7TGlm7p33Gv20W5zCKwLsBYW9ljysZD')
+- `sendText(text, id)` - Send text message to user
+- `sendImageAttachment(image, id)` - Send image with recipe
+- `getMessageObject(json)` - Extract message and user ID from webhook data
 
-app.use(Restify.plugins.bodyParser({ limit: '50mb' }))
-app.use(Restify.plugins.jsonp())
+## 🚀 Deployment
 
-app.get('/', (req, res, next) => {
-    if (req.query['hub.mode'] == 'subscribe' && req.query['hub.verify_token'] == token) {
-        res.end(req.query['hub.challenge'])
-    } else {
-        next()
-    }
-})
+### Deploy to Heroku
 
-app.post('/', (req, res, next) => {
-    const response = req.body
-    const index = Math.floor(Math.random() * (3 - 1) + 1)
-    const index2 = Math.floor(Math.random() * (6 - 1) + 1)
-    const mealMessage = ['Baked Chicken', 'Drunken Chicken Recipe', 'Chicken Satay','Chicken Feet Stock', 'Catalan Chicken', 'Creamed Chicken recipes']
-    const welcomeMessage = ['Welcome to philia, your personal food recommendation assistant. you can search for a special diet meal planning by saying, Can I get a high-protein  meal, please ?  or just say , Can you search for a burger recipe ? or ask for help','Hello dear customer, I am philia, your personal assistant for dietary recommendations. you can ask for help or search for a special diet meal planning by saying, Do you have balanced meal ? or Can I get a pizza recipe ?','Hello, my name is philia, your personal assistant to find you meals that match your diet and taste. search for a special diet meal planning by saying; Do you have low-sodium meal ? or just say ; Can I get a chicken recipe ? or just ask for help']
-    const image = ['https://www.edamam.com/web-img/01c/01cacb70890274fb7b7cebb975a93231.jpg','https://www.edamam.com/web-img/921/9216913515dc95ba687e2ae85d6ef3e0.jpg', 'https://www.edamam.com/web-img/ba6/ba6f66d885e4d62a98055b088a5a85a3.jpg', 'https://www.edamam.com/web-img/ae9/ae96650072cc599967d945c5e9961bb7.JPG', 'https://www.edamam.com/web-img/4d9/4d9084cbc170789caa9e997108b595de.jpg', 'https://www.edamam.com/web-img/67d/67dfcb646ef76499afc7b89640868099']
-    if (response.object === "page") {
-        const messageObj = bot.getMessageObject(response)
-        if(messageObj.message.includes('meal') || messageObj.message.includes('recipe') || messageObj.message.includes('do you have') || messageObj.message.includes('may I have') || messageObj.message.includes('do you have') || messageObj.message.includes('can I order')){
-            bot.sendText(`In that case , I recommend that you take ${mealMessage[index2]}`, messageObj.id)
-            bot.sendImageAttachment(`${image[index2]}`, messageObj.id)
-        }else if (messageObj.message.includes('thank')){
-            bot.sendText(`It is still my pleasure to help you out`, messageObj.id)
-        }else if (messageObj.message.includes('bye')){
-            bot.sendText(`Good bye, see you soon`, messageObj.id)
-        }
-        else{
-            bot.sendText(`${welcomeMessage[index]}`, messageObj.id)
-        }
-    }
-    res.send(200)
-})
+1. **Install Heroku CLI**
+   ```bash
+   npm install -g heroku
+   ```
 
-app.listen(PORT, () =>
-    console.log('Server listening on:' + PORT)
-);
-```
+2. **Login to Heroku**
+   ```bash
+   heroku login
+   ```
 
-**Step 4 : Setting up Facebook Application**
+3. **Create Heroku App**
+   ```bash
+   heroku create your-app-name
+   ```
 
-Before continuing to send requests to Facebook, let’s create our Facebook app.
-To create a Facebook Messenger bot, we need the two things:
+4. **Set Environment Variables**
+   ```bash
+   heroku config:set FACEBOOK_ACCESS_TOKEN=your_token
+   heroku config:set VERIFY_TOKEN=your_verify_token
+   ```
 
-- Facebook public page, that you’ll connect with your bot.
-- Facebook Developer application, which will be connected to your webhook server and your public page, and work as a middleware between them.
+5. **Deploy**
+   ```bash
+   git push heroku main
+   ```
 
-First you need to create a Facebook page. Go to [https://web.facebook.com/pages/create?](https://web.facebook.com/pages/create?). Choose a Page name, Category, Description and click create Page.
+### Deploy with Docker
 
-After that you’ll need to login in your Facebook developer account and create an app. Go to [https://developers.facebook.com/apps/](https://developers.facebook.com/apps/),  click the “Create App” button, select “Manage Business Integrations” then click “Continue”. 
-In the next popup modal, write in the name of app, select your App purpose (eg. Clients) and then click again “Create App”.
+1. **Create Dockerfile**
+   ```dockerfile
+   FROM node:16-alpine
+   
+   WORKDIR /app
+   
+   COPY package*.json ./
+   RUN npm ci --only=production
+   
+   COPY . .
+   
+   EXPOSE 8001
+   
+   CMD ["npm", "start"]
+   ```
 
-After creating the App, you have to select a product. Click the“Messenger” icon and then click on the “Set Up” button. This will redirect you to the Messenger Platform.
+2. **Create .dockerignore**
+   ```text
+   node_modules
+   npm-debug.log
+   .git
+   .gitignore
+   README.md
+   .env
+   ```
 
-Once you’re there, you must locate the “Access Tokens” section. click on “Add or Remove Pages” button to select the page you already created by following the step it ask and you will click on the “Generate Token” button located in the right side of your selected page. It will give you a Page Access Token that we will replace in our node js webhook server by copying it.
+3. **Build and Run**
+   ```bash
+   # Build the image
+   docker build -t philia-bot .
+   
+   # Run the container
+   docker run -p 8001:8001 \
+     -e FACEBOOK_ACCESS_TOKEN=your_token \
+     -e VERIFY_TOKEN=your_verify_token \
+     philia-bot
+   ```
 
-Below this section is the Webhooks section. Click on “Add Callback URL” and it will show you a popup window, where you’ll need to fill out the following:
+4. **Using Docker Compose**
+   ```yaml
+   # docker-compose.yml
+   version: '3.8'
+   services:
+     philia-bot:
+       build: .
+       ports:
+         - "8001:8001"
+       environment:
+         - FACEBOOK_ACCESS_TOKEN=${FACEBOOK_ACCESS_TOKEN}
+         - VERIFY_TOKEN=${VERIFY_TOKEN}
+       restart: unless-stopped
+   ```
 
-- Callback URL: With your heroku app url , in my case it is [https://philodi-recipe-engine.herokuapp.com/](https://philodi-recipe-engine.herokuapp.com/). (change this with yours).
-- Verify Token: The token string value for validation that you already chose from your index.js file.
+   ```bash
+   docker-compose up -d
+   ```
 
-After doing that , you will need to add a Subscription Fields. Click on "Add Subscriptions" button located in the right side of your selected page in the Webhooks session, choose "messages" and click " save " button. If you want to know more about webhooks events read this [information](https://developers.facebook.com/docs/messenger-platform/webhook).
+### Deploy to Kubernetes
 
-Now, all that’s left is to test our bot. If all is well with your bot, you should get replies from the bot for some simple questions like “Hello ?”, " thank you", " can I order a balanced meal ?", " do you have italian food ?", etc…
+1. **Create Kubernetes Deployment**
+   ```yaml
+   # k8s/deployment.yaml
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: philia-bot
+     labels:
+       app: philia-bot
+   spec:
+     replicas: 3
+     selector:
+       matchLabels:
+         app: philia-bot
+     template:
+       metadata:
+         labels:
+           app: philia-bot
+       spec:
+         containers:
+         - name: philia-bot
+           image: your-registry/philia-bot:latest
+           ports:
+           - containerPort: 8001
+           env:
+           - name: FACEBOOK_ACCESS_TOKEN
+             valueFrom:
+               secretKeyRef:
+                 name: philia-secrets
+                 key: facebook-token
+           - name: VERIFY_TOKEN
+             valueFrom:
+               secretKeyRef:
+                 name: philia-secrets
+                 key: verify-token
+           resources:
+             requests:
+               memory: "128Mi"
+               cpu: "100m"
+             limits:
+               memory: "256Mi"
+               cpu: "200m"
+   ```
 
-### Summary
+2. **Create Service**
+   ```yaml
+   # k8s/service.yaml
+   apiVersion: v1
+   kind: Service
+   metadata:
+     name: philia-bot-service
+   spec:
+     selector:
+       app: philia-bot
+     ports:
+     - protocol: TCP
+       port: 80
+       targetPort: 8001
+     type: LoadBalancer
+   ```
 
-Congratulations on making it through this project with me! I had a lot of fun and hope you did as well. I built a basic Facebook Messenger bot with node.js and tested it on Facebook Messenger app.
+3. **Create Secrets**
+   ```bash
+   kubectl create secret generic philia-secrets \
+     --from-literal=facebook-token=your_token \
+     --from-literal=verify-token=your_verify_token
+   ```
 
-If you’d like to see a full-working version of this, you can check it out [here on GitHub](https://github.com/Phil-Jayz/philia-bot-messenger). If you want to make this better, I encourage you to open a pull request! You can ask questions there in an issue or open an issue if you find a bug. All contributions are welcome!
+4. **Deploy to Kubernetes**
+   ```bash
+   kubectl apply -f k8s/
+   ```
 
-### Next Steps
-If you’d like to continue hacking on this project further, here are a few ideas:
+### Deploy to AWS
 
-- Send a message to the user along with the username of the person who interacted with the bot
-- Interact with the bot with a voice interface
-- Integrate Natural languange experiences to the bot (for example wit.ai)
-- Send a Request for reviews to get your app live and published for production
+#### AWS ECS (Elastic Container Service)
 
-Let me know if you do this or something similar. We’d love to see what you build.
+1. **Create ECR Repository**
+   ```bash
+   aws ecr create-repository --repository-name philia-bot
+   ```
 
-### Resources for Learning More on Facebook Messenger bot
-Looking for more ways to develop your Facebook Messenger bot skills? Here are a few recommendations for continuing your learning :
+2. **Build and Push to ECR**
+   ```bash
+   # Get login token
+   aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin your-account.dkr.ecr.us-east-1.amazonaws.com
+   
+   # Build and tag
+   docker build -t philia-bot .
+   docker tag philia-bot:latest your-account.dkr.ecr.us-east-1.amazonaws.com/philia-bot:latest
+   
+   # Push to ECR
+   docker push your-account.dkr.ecr.us-east-1.amazonaws.com/philia-bot:latest
+   ```
 
-- [Facebook Messenger bot: A tutorial in Go](https://chatbotslife.com/facebook-messenger-bot-a-tutorial-in-go-c2aa13b50110)
-- [Messenger-Platform documentation](https://developers.facebook.com/docs/messenger-platform/send-messages/)
+3. **Create Task Definition**
+   ```json
+   {
+     "family": "philia-bot",
+     "networkMode": "awsvpc",
+     "requiresCompatibilities": ["FARGATE"],
+     "cpu": "256",
+     "memory": "512",
+     "executionRoleArn": "arn:aws:iam::your-account:role/ecsTaskExecutionRole",
+     "containerDefinitions": [
+       {
+         "name": "philia-bot",
+         "image": "your-account.dkr.ecr.us-east-1.amazonaws.com/philia-bot:latest",
+         "portMappings": [
+           {
+             "containerPort": 8001,
+             "protocol": "tcp"
+           }
+         ],
+         "environment": [
+           {
+             "name": "FACEBOOK_ACCESS_TOKEN",
+             "value": "your_token"
+           },
+           {
+             "name": "VERIFY_TOKEN",
+             "value": "your_verify_token"
+           }
+         ],
+         "logConfiguration": {
+           "logDriver": "awslogs",
+           "options": {
+             "awslogs-group": "/ecs/philia-bot",
+             "awslogs-region": "us-east-1",
+             "awslogs-stream-prefix": "ecs"
+           }
+         }
+       }
+     ]
+   }
+   ```
 
-Thanks for reading. Happy coding!
+4. **Create ECS Service**
+   ```bash
+   aws ecs create-service \
+     --cluster your-cluster \
+     --service-name philia-bot \
+     --task-definition philia-bot:1 \
+     --desired-count 2 \
+     --launch-type FARGATE \
+     --network-configuration "awsvpcConfiguration={subnets=[subnet-12345],securityGroups=[sg-12345],assignPublicIp=ENABLED}"
+   ```
 
-Special thanks to the Facebook Developer Circles for the tutorial examples which made writing this tutorial possible.
+#### AWS Lambda (Serverless)
 
-To learn more about Facebook Open Source, visit [Facebook open source website](https://opensource.facebook.com/), subscribe on [Facebook open source Youtube](https://www.youtube.com/channel/UCCQY962PmHabTjaHv2wJzfQ), or follow Facebook open source products on [Facebook](https://www.facebook.com/fbOpenSource/?ref=aymt_homepage_panel&eid=ARDXvVAPwnpPxsaQUtdpdrWV6jhb5mz67ET63dJme3yZIeS0ACffMtUeMkdUFwe3UjT61YNDIy_rXwdD).
+1. **Create Lambda Function**
+   ```javascript
+   // lambda.js
+   const serverless = require('serverless-http');
+   const app = require('./index');
+   
+   module.exports.handler = serverless(app);
+   ```
+
+2. **Create serverless.yml**
+   ```yaml
+   service: philia-bot
+   
+   provider:
+     name: aws
+     runtime: nodejs16.x
+     region: us-east-1
+     environment:
+       FACEBOOK_ACCESS_TOKEN: ${env:FACEBOOK_ACCESS_TOKEN}
+       VERIFY_TOKEN: ${env:VERIFY_TOKEN}
+   
+   functions:
+     webhook:
+       handler: lambda.handler
+       events:
+         - http:
+             path: /
+             method: get
+         - http:
+             path: /
+             method: post
+   ```
+
+3. **Deploy with Serverless Framework**
+   ```bash
+   npm install -g serverless
+   serverless deploy
+   ```
+
+### Deploy to Google Cloud Platform (GCP)
+
+#### Google Cloud Run
+
+1. **Enable Required APIs**
+   ```bash
+   gcloud services enable run.googleapis.com
+   gcloud services enable containerregistry.googleapis.com
+   ```
+
+2. **Build and Push to Container Registry**
+   ```bash
+   # Build the image
+   docker build -t gcr.io/your-project/philia-bot .
+   
+   # Push to Container Registry
+   docker push gcr.io/your-project/philia-bot
+   ```
+
+3. **Deploy to Cloud Run**
+   ```bash
+   gcloud run deploy philia-bot \
+     --image gcr.io/your-project/philia-bot \
+     --platform managed \
+     --region us-central1 \
+     --allow-unauthenticated \
+     --set-env-vars FACEBOOK_ACCESS_TOKEN=your_token,VERIFY_TOKEN=your_verify_token
+   ```
+
+#### Google Kubernetes Engine (GKE)
+
+1. **Create GKE Cluster**
+   ```bash
+   gcloud container clusters create philia-cluster \
+     --zone us-central1-a \
+     --num-nodes 3 \
+     --machine-type e2-medium
+   ```
+
+2. **Deploy to GKE**
+   ```bash
+   # Build and push to Container Registry
+   docker build -t gcr.io/your-project/philia-bot .
+   docker push gcr.io/your-project/philia-bot
+   
+   # Apply Kubernetes manifests
+   kubectl apply -f k8s/
+   ```
+
+### Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `PORT` | Server port | No (default: 8001) |
+| `FACEBOOK_ACCESS_TOKEN` | Facebook page access token | Yes |
+| `VERIFY_TOKEN` | Webhook verification token | Yes |
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help:
+
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Commit your changes** (`git commit -m 'Add amazing feature'`)
+4. **Push to the branch** (`git push origin feature/amazing-feature`)
+5. **Open a Pull Request**
+
+### Development Ideas
+
+- [ ] Add voice interface support
+- [ ] Integrate with Wit.ai for better NLP
+- [ ] Add recipe rating system
+- [ ] Implement user preferences storage
+- [ ] Add meal planning features
+- [ ] Support for recipe sharing
+- [ ] Add nutritional goal tracking
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Facebook Developer Circles for tutorial examples
+- Edamam API for recipe data
+- Heroku for hosting platform
+- Node.js community for excellent tools and libraries
+
+## 📞 Support
+
+If you have any questions or need help:
+
+- **Email:** me@philodi.com
+- **Website:** https://philodi.com
+- **GitHub Issues:** [Create an issue](https://github.com/Phil-Jayz/philia-bot-messenger/issues)
+
+---
+
+**Happy Cooking! 🍳**
+
+*Built with ❤️ by Philodi*
